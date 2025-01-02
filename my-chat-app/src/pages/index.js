@@ -22,25 +22,25 @@ export default function Home() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-      <div style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
-        {chatLog.map((msg, index) => (
-          <div key={index} style={{ marginBottom: '10px', textAlign: msg.sender === 'user' ? 'right' : 'left' }}>
-            <span style={{ backgroundColor: msg.sender === 'user' ? '#DCF8C6' : '#E5E5EA', padding: '10px', borderRadius: '10px' }}>
-              {msg.text}
-            </span>
-          </div>
-        ))}
-      </div>
-      <form onSubmit={handleSubmit} style={{ padding: '20px', display: 'flex' }}>
-        <input
-          type="text"
-          value={message}
-          onChange={handleInputChange}
-          placeholder="输入你的消息..."
-          style={{ flex: 1, padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
-        />
-        <button type="submit" style={{ marginLeft: '10px', padding: '10px 20px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '5px' }}>发送</button>
-      </form>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '20px', paddingBottom: '100px', '&::-webkit-scrollbar': { display: 'none' } }}>
+            {chatLog.map((msg, index) => (
+                <div key={index} style={{ marginBottom: '10px', textAlign: msg.sender === 'user' ? 'right' : 'left' }}>
+                    <span style={{ backgroundColor: msg.sender === 'user' ? '#DCF8C6' : '#E5E5EA', padding: '10px', borderRadius: '10px' }}>
+                        {msg.text}
+                    </span>
+                </div>
+            ))}
+        </div>
+        <form onSubmit={handleSubmit} style={{ padding: '20px', display: 'flex', position: 'fixed', bottom: 0, width: '70%', backgroundColor: 'white', left: '50%', transform: 'translateX(-50%)', borderRadius: '10px' }}>
+            <input
+                type="text"
+                value={message}
+                onChange={handleInputChange}
+                placeholder="输入你的消息..."
+                style={{ flex: 1, padding: '10px', borderRadius: '5px', border: 'none', backgroundColor: '#f0f0f0', marginLeft: '10px' }}
+            />
+            <button type="submit" style={{ marginLeft: '10px', padding: '10px 20px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '5px' }}>发送</button>
+        </form>
     </div>
-  );
+);
 }
