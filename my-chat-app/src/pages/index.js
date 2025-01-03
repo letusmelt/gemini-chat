@@ -40,8 +40,20 @@ export default function Home() {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <div style={{ flex: 1, overflowY: 'auto', padding: '20px', paddingBottom: '100px', '&::-webkit-scrollbar': { display: 'none' } }}>
             {chatLog.map((msg, index) => (
-                <div key={index} style={{ marginBottom: '10px', textAlign: msg.sender === 'user' ? 'right' : 'left' }}>
-                    <span style={{ backgroundColor: msg.sender === 'user' ? '#E5E5EA' : '#FFFFFF', padding: '10px', borderRadius: '10px' }}>
+                <div key={index} style={{ 
+                    marginBottom: '10px', 
+                    textAlign: msg.sender === 'user' ? 'right' : 'left',
+                    display: 'flex',
+                    justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start'
+                }}>
+                    <span style={{ 
+                        backgroundColor: msg.sender === 'user' ? '#E5E5EA' : '#FFFFFF', 
+                        padding: '10px', 
+                        borderRadius: '10px',
+                        maxWidth: '70%',  // 限制最大宽度
+                        whiteSpace: 'pre-wrap',  // 保留换行和空格
+                        wordWrap: 'break-word'  // 确保长文本会换行
+                    }}>
                         {msg.text}
                     </span>
                 </div>
