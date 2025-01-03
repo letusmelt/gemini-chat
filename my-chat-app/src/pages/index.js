@@ -8,16 +8,32 @@ export default function Home() {
     setMessage(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (message.trim() === '') return;
 
     setChatLog([...chatLog, { text: message, sender: 'user' }]);
     setMessage('');
-    // 这里可以添加调用后端 API 的逻辑
-    setTimeout(() => {
-      setChatLog(prevChatLog => [...prevChatLog, { text: '你好！我是 AI 助手。', sender: 'ai' }]);
-    }, 500);
+
+    try {
+      const response = await fetch('http://localhost:3001/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setChatLog(prevChatLog => [...prevChatLog, { text: data.reply, sender: 'ai' }]);
+    } catch (error) {
+      console.error('Error fetching AI response:', error);
+      setChatLog(prevChatLog => [...prevChatLog, { text: 'Failed to get AI response.', sender: 'ai' }]);
+    }
   };
 
   return (
